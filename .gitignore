@@ -36,7 +36,9 @@ buildNumber.properties
 *.iml
 *.iws
 *.ipr
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 *.swp
 *.swo
 .DS_Store
