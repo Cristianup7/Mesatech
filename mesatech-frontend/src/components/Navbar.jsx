@@ -1,0 +1,118 @@
+import React, { useState } from "react";
+import { Cloud, LogIn, LogOut, ShieldCheck, Server } from "lucide-react";
+import { getApiBaseUrl, setApiBaseUrl } from "../services/apiService";
+
+export const Navbar = ({
+  isAuthenticated,
+  user,
+  userRole,
+  onLogin,
+  onLogout,
+  onOpenTokenModal
+}) => {
+  const [currentUrl, setCurrentUrl] = useState(getApiBaseUrl());
+
+  const handleUrlChange = (e) => {
+    const newUrl = e.target.value;
+    setApiBaseUrl(newUrl);
+    setCurrentUrl(newUrl);
+  };
+
+  const getRoleBadgeStyle = (role) => {
+    switch (role) {
+      case "Administrador":
+        return { backgroundColor: "#7c3aed", color: "white" };
+      case "Operador":
+        return { backgroundColor: "#d97706", color: "white" };
+      case "Cliente":
+      default:
+        return { backgroundColor: "#0284c7", color: "white" };
+    }
+  };
+
+  return (
+    <header className="navbar">
+      <div className="nav-brand">
+        <Cloud size={28} color="#0284c7" />
+        <div>
+          MesaTech <span>Cloud</span>
+        </div>
+        {isAuthenticated && userRole && (
+          <span className="nav-role-badge" style={getRoleBadgeStyle(userRole)}>
+            Cargo: {user?.cargo || userRole}
+          </span>
+        )}
+      </div>
+
+      <div className="nav-actions">
+        {/* Selector de Endpoint Backend para Defensa y Pruebas */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", backgroundColor: "#f1f5f9", padding: "0.25rem 0.5rem", borderRadius: "0.375rem" }}>
+          <Server size={14} color="#64748b" />
+          <span style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 600 }}>API:</span>
+          <select
+            className="form-control"
+            style={{ padding: "0.15rem 0.4rem", fontSize: "0.75rem", width: "auto", border: "1px solid #cbd5e1", borderRadius: "0.25rem" }}
+            value={currentUrl}
+            onChange={handleUrlChange}
+          >
+            <option value="http://98.80.12.101:8080">EC2 BFF Directo (:8080)</option>
+            <option value="https://8i73hoe194.execute-api.us-east-1.amazonaws.com">AWS API Gateway (HTTP API)</option>
+          </select>
+        </div>
+
+        {isAuthenticated ? (
+          <>
+            {/* Inspector de Claims del Token */}
+            <button className="btn btn-outline btn-sm" onClick={onOpenTokenModal}>
+              <ShieldCheck size={16} color="#0284c7" />
+              Inspeccionar Claims JWT
+            </button>
+
+            {/* Perfil del Usuario */}
+            <div className="user-profile-badge">
+              <div
+                className="user-avatar"
+                style={{
+                  backgroundColor: userRole === "Administrador" ? "#7c3aed" : userRole === "Operador" ? "#d97706" : "#0284c7"
+                }}
+              >
+                {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+              </div>
+              <div className="user-details">
+                <span className="user-name" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  {user?.name || "Usuario Autenticado"}
+                  <span style={{
+                    fontSize: "0.68rem",
+                    padding: "0.1rem 0.4rem",
+                    borderRadius: "0.25rem",
+                    fontWeight: "bold",
+                    backgroundColor: userRole === "Administrador" ? "#f3e8ff" : userRole === "Operador" ? "#fef3c7" : "#e0f2fe",
+                    color: userRole === "Administrador" ? "#6b21a8" : userRole === "Operador" ? "#b45309" : "#0369a1",
+                    border: `1px solid ${userRole === "Administrador" ? "#d8b4fe" : userRole === "Operador" ? "#fde68a" : "#bae6fd"}`
+                  }}>
+                    {user?.cargo || userRole || "Cliente"}
+                  </span>
+                </span>
+                <span className="user-email">{user?.username || user?.email || "usuario@mesatech.cloud"}</span>
+              </div>
+            </div>
+
+            {/* Botón Logout */}
+            <button className="btn btn-danger btn-sm" onClick={onLogout} title="Cerrar Sesión">
+              <LogOut size={16} />
+              Salir
+            </button>
+          </>
+        ) : (
+          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+            {/* Botón de acceso con Microsoft Entra ID */}
+            <button className="btn btn-primary" onClick={onLogin}>
+              <LogIn size={18} />
+              Iniciar Sesión (Entra ID)
+            </button>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};

@@ -1,0 +1,62 @@
+{
+  "id": "e5b72183-1122-4433-8899-aabbccddeeff",
+  "appId": "api-cloud-native-client-id",
+  "name": "api-cloud-native",
+  "accessTokenAcceptedVersion": 2,
+  "signInAudience": "AzureADMyOrg",
+  "identifierUris": [
+    "api://api-cloud-native"
+  ],
+  "api": {
+    "acceptMappedClaims": null,
+    "knownClientApplications": [],
+    "requestedAccessTokenVersion": 2,
+    "oauth2PermissionScopes": [
+      {
+        "adminConsentDescription": "Permite a la aplicación acceder a la API de MesaTech Cloud en nombre del usuario autenticado.",
+        "adminConsentDisplayName": "Acceso como usuario a MesaTech API",
+        "id": "7b8f9e10-3344-5566-7788-99aabbccdde0",
+        "isEnabled": true,
+        "type": "User",
+        "userConsentDescription": "Permite acceder a tus datos y solicitudes en MesaTech Cloud.",
+        "userConsentDisplayName": "Acceso a tus solicitudes en MesaTech Cloud",
+        "value": "access_as_user"
+      }
+    ]
+  },
+  "appRoles": [
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Usuario final solicitante de tickets de soporte técnico.",
+      "displayName": "Cliente",
+      "id": "11111111-2222-3333-4444-555555555551",
+      "isEnabled": true,
+      "origin": "Application",
+      "value": "Cliente"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Técnico u operador de mesa de ayuda encargado de gestionar estados de solicitudes.",
+      "displayName": "Operador",
+      "id": "22222222-3333-4444-5555-666666666662",
+      "isEnabled": true,
+      "origin": "Application",
+      "value": "Operador"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Administrador global de la plataforma con permisos sobre catálogos y todas las solicitudes.",
+      "displayName": "Administrador",
+      "id": "33333333-4444-5555-6666-777777777773",
+      "isEnabled": true,
+      "origin": "Application",
+      "value": "Administrador"
+    }
+  ]
+}

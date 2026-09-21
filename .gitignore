@@ -1,0 +1,54 @@
+# Archivos de entorno y credenciales sensibles
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.pfx
+
+# Dependencias Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Compilados de Frontend
+/mesatech-frontend/build/
+/mesatech-frontend/.pnp
+/mesatech-frontend/.pnp.js
+
+# Compilados Java / Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDEs y Editores
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Docker
+.docker/
+
+# Binarios locales
+.jdk/
+*.zip

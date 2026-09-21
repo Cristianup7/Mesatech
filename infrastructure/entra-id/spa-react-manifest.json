@@ -1,0 +1,42 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456789",
+  "appId": "mesatech-spa-react-client-id",
+  "name": "mesatech-spa-react",
+  "accessTokenAcceptedVersion": 2,
+  "signInAudience": "AzureADMyOrg",
+  "spa": {
+    "redirectUris": [
+      "http://localhost:3000",
+      "http://localhost:3000/blank.html",
+      "https://mesatech.cloud"
+    ]
+  },
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "api-cloud-native-client-id",
+      "resourceAccess": [
+        {
+          "id": "7b8f9e10-3344-5566-7788-99aabbccdde0",
+          "type": "Scope"
+        }
+      ]
+    },
+    {
+      "resourceAppId": "00000003-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+          "type": "Scope"
+        },
+        {
+          "id": "14dad69e-099b-42c9-810e-d00298133816",
+          "type": "Scope"
+        },
+        {
+          "id": "37f4544e-9961-48cc-b61b-14c1270b9917",
+          "type": "Scope"
+        }
+      ]
+    }
+  ]
+}

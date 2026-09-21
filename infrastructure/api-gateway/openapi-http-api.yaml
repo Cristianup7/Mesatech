@@ -1,0 +1,59 @@
+openapi: 3.0.1
+info:
+  title: MesaTech Cloud API Gateway
+  description: HTTP API pública de MesaTech Cloud con autorización JWT integrada a Microsoft Entra ID.
+  version: 1.0.0
+servers:
+  - url: https://{apiId}.execute-api.{region}.amazonaws.com
+paths:
+  /v1/{proxy+}:
+    x-amazon-apigateway-any-method:
+      summary: Proxy para endpoints versión 1 (Solicitudes y Catálogo)
+      security:
+        - EntraIdJwtAuthorizer: []
+      parameters:
+        - name: proxy
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Respuesta proxy reenviada desde el BFF
+      x-amazon-apigateway-integration:
+        type: http_proxy
+        httpMethod: ANY
+        uri: http://{ec2_endpoint}:8080/{proxy}
+        payloadFormatVersion: "1.0"
+
+  /v2/{proxy+}:
+    x-amazon-apigateway-any-method:
+      summary: Proxy para endpoints versión 2 (Solicitudes enriquecidas)
+      security:
+        - EntraIdJwtAuthorizer: []
+      parameters:
+        - name: proxy
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Respuesta proxy reenviada desde el BFF
+      x-amazon-apigateway-integration:
+        type: http_proxy
+        httpMethod: ANY
+        uri: http://{ec2_endpoint}:8080/{proxy}
+        payloadFormatVersion: "1.0"
+
+components:
+  securitySchemes:
+    EntraIdJwtAuthorizer:
+      type: oauth2
+      x-amazon-apigateway-authorizer:
+        type: jwt
+        identitySource: "$request.header.Authorization"
+        jwtConfiguration:
+          issuer: "https://login.microsoftonline.com/{tenant_id}/v2.0"
+          audience:
+            - "api://api-cloud-native"
